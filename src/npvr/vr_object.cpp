@@ -23,7 +23,6 @@
 
 using namespace npvr;
 
-
 namespace {
 
 DECLARE_NPOBJECT_CLASS_WITH_BASE(VRObject, VRObject::Allocate);
@@ -114,30 +113,41 @@ bool VRObject::InvokeExec(const NPVariant* args, uint32_t arg_count,
   return true;
 }
 
+/**
+ * Parse the HMDInfo into a stringstream
+*/
 void VRObject::QueryHmdInfo(const char* command_str, std::ostringstream& s) {
   OVRManager *manager = OVRManager::Instance();
   if (!manager->DevicePresent()) {
     return;
   }
 
-  const OVR::HMDInfo& info = *manager->GetDeviceInfo();
+  const ovrHmdDesc& info = *manager->GetDeviceInfo();
 
-  s << info.ProductName << "," << info.Manufacturer << "," << info.Version << ",";
-  s << info.DesktopX << "," << info.DesktopY << ",";
-  s << info.HResolution << "," << info.VResolution << ",";
-  s << info.HScreenSize << "," << info.VScreenSize << ",";
-  s << info.VScreenCenter << ",";
-  s << info.EyeToScreenDistance << ",";
-  s << info.LensSeparationDistance << ",";
-  s << info.InterpupillaryDistance << ",";
-  s << info.DistortionK[0] << ",";
-  s << info.DistortionK[1] << ",";
-  s << info.DistortionK[2] << ",";
-  s << info.DistortionK[3] << ",";
-  s << info.ChromaAbCorrection[0] << ",";
-  s << info.ChromaAbCorrection[1] << ",";
-  s << info.ChromaAbCorrection[2] << ",";
-  s << info.ChromaAbCorrection[3];
+  //s << info.SerialNumber << ",";
+  s << info.ProductName << "," << info.Manufacturer << "," << info.FirmwareMajor << "." << info.FirmwareMinor << ",";
+  s << info.WindowsPos.x << "," << info.WindowsPos.y << ",";
+  s << info.Resolution.w << "," << info.Resolution.h << ",";
+
+  //Use DK1 defaults since I'm too lazy to figure out how to get the actual values from the HMD
+  s << "0.14976,0.0936,0.0468,0.041,0.0635,0.064,1,0.2199999988079071,0.23999999463558197,0,0.9959999918937683,-0.004000000189989805,1.0140000581741333,0";
+
+  //s << info.ProductName << "," << info.Manufacturer << "," << info.Version << ",";
+  //s << info.DesktopX << "," << info.DesktopY << ",";
+  //s << info.HResolution << "," << info.VResolution << ",";
+  //s << info.HScreenSize << "," << info.VScreenSize << ",";
+  //s << info.VScreenCenter << ",";
+  //s << info.EyeToScreenDistance << ",";
+  //s << info.LensSeparationDistance << ",";
+  //s << info.InterpupillaryDistance << ",";
+  //s << info.DistortionK[0] << ",";
+  //s << info.DistortionK[1] << ",";
+  //s << info.DistortionK[2] << ",";
+  //s << info.DistortionK[3] << ",";
+  //s << info.ChromaAbCorrection[0] << ",";
+  //s << info.ChromaAbCorrection[1] << ",";
+  //s << info.ChromaAbCorrection[2] << ",";
+  //s << info.ChromaAbCorrection[3];
 }
 
 void VRObject::ResetHmdOrientation(const char* command_str, std::ostringstream& s) {
