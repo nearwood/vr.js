@@ -23,26 +23,26 @@
 
 namespace npvr {
 
-	class OVRManager{ //: public OVR::MessageHandler {
-	public:
-		virtual ~OVRManager();
-		static OVRManager *Instance();
-		ovrHmd GetDevice() const; //ovrHmd is typedef of ovrHmdDesc*
-		const ovrHmd GetDeviceInfo() const; //ovrHmdDesc is typedef of ovrHmd
-		bool DevicePresent() const;
-		ovrQuatf GetOrientation() const;
-		void ResetOrientation();
-		// void OnMessage(const OVR::Message &message);
-	private:
-		OVRManager();
-		void SetDevice(ovrHmd device);
-		//OVR::DeviceManager *device_manager_;
-		ovrHmd hmd_device_;
+  class OVRManager{ //: public OVR::MessageHandler {
+  public:
+    virtual ~OVRManager();
+    static OVRManager *Instance();
+    ovrHmd GetDevice() const; //ovrHmd is typedef of ovrHmdDesc*
+    const ovrHmd GetDeviceInfo() const; //ovrHmdDesc is typedef of ovrHmd
+    bool DevicePresent() const;
+    ovrQuatf GetOrientation() const;
+    void ResetOrientation();
+    // void OnMessage(const OVR::Message &message);
+  private:
+    OVRManager();
+    void SetDevice(ovrHmd device);
+    //OVR::DeviceManager *device_manager_;
+    ovrHmd hmd_device_;
 
-		//ovrSensorData?
-		//OVR::SensorFusion  *sensor_fusion_;
-		//ovrTrackingState sensor_fusion_;
-	};
+    //ovrSensorData?
+    //OVR::SensorFusion  *sensor_fusion_;
+    //ovrTrackingState sensor_fusion_;
+  };
 
 }
 
