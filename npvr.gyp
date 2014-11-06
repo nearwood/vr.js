@@ -90,10 +90,11 @@
             'WarningLevel': '3',
             #'WarnAsError': 'true',
             'DebugInformationFormat': '3',
-            'ExceptionHandling': '1', # /EHsc
+            'ExceptionHandling': '1',
             'AdditionalOptions': [
               '/MP',
               '/TP', # Compile as C++
+			  '/EHsc',
             ],
           },
           'VCLinkerTool': {
@@ -208,7 +209,7 @@
       'xcode_settings': {
         'INFOPLIST_FILE': 'src/Info.plist',
       },
-      'product_extension': 'plugin',
+      'product_extension': 'dll',
 
       'libraries': [
         '<@(third_party_libs)',
