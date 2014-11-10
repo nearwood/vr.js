@@ -1,18 +1,4 @@
-/**
- * Copyright 2013 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// NPVR TEST
 
 #ifndef NPVR_VR_OBJECT_H_
 #define NPVR_VR_OBJECT_H_
@@ -42,16 +28,18 @@ public:
 
 private:
   bool InvokeExec(const NPVariant* args, uint32_t arg_count, NPVariant* result);
-  void QueryHmdInfo(const char* command_str, std::ostringstream& s);
-  void ResetHmdOrientation(const char* command_str, std::ostringstream& s);
+  void ExecQuery(const char* command_str, std::ostringstream& s);
 
   bool InvokePoll(const NPVariant* args, uint32_t arg_count, NPVariant* result);
-  void PollSixenseState(std::ostringstream& s);
-  void PollHmdState(std::ostringstream& s);
+  bool InvokeOConfigurationRequest(const NPVariant* args, uint32_t arg_count, NPVariant* result);
+  void PollSixense(std::ostringstream& s);
+  void PollOculus(std::ostringstream& s);
+  void GetOculusConfiguration(std::ostringstream& s);
 
 private:
   NPIdentifier    exec_id_;
   NPIdentifier    poll_id_;
+  NPIdentifier	  oState_id_;
 
   bool            sixense_ready_;
 };

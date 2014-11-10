@@ -28,6 +28,10 @@ OVRManager::OVRManager():
 hmd_device_(NULL)
 {
 	ovr_Initialize(); //bool
+
+	defaultOrientation = new ovrQuatf();
+	defaultPosition = new ovrVector3f();
+
 	int numHmds = ovrHmd_Detect();
 	if (numHmds > 0)
 	{
@@ -81,20 +85,39 @@ bool OVRManager::DevicePresent() const {
 	return hmd_device_ != NULL; //ovrHmd_Detect() > 0
 }
 
-ovrQuatf OVRManager::GetOrientation() const
+ovrQuatf* OVRManager::GetOrientation() const
 {
 	ovrTrackingState ts = ovrHmd_GetTrackingState(hmd_device_, ovr_GetTimeInSeconds());
 
-	if (ts.StatusFlags &  (ovrStatus_OrientationTracked | ovrStatus_PositionTracked))
+	if (ts.StatusFlags & (ovrStatus_OrientationTracked))
 	{
-		return ts.HeadPose.ThePose.Orientation;
+		return &ts.HeadPose.ThePose.Orientation;
 		//Posef pose = ts.HeadPose;
 	} else {
-		return OVR::Quatf(0, 0, 0, 1);
+		return defaultOrientation;
 	}
 }
 
 void OVRManager::ResetOrientation()
 {
 	ovrHmd_RecenterPose(hmd_device_);
+}
+
+ovrVector3f* OVRManager::GetPosition() const
+{
+	ovrTrackingState ts = ovrHmd_GetTrackingState(hmd_device_, ovr_GetTimeInSeconds());
+
+	if (ts.StatusFlags &  (ovrStatus_PositionTracked))
+	{
+		return &ts.HeadPose.ThePose.Position;
+		//Posef pose = ts.HeadPose;
+	} else {
+		return defaultPosition; //TODO Use last position
+	}
+}
+
+ovrHmd OVRManager::GetConfiguration() const
+{
+	ovrHmd test = hmd_device_;
+	return test;
 }

@@ -30,18 +30,18 @@ namespace npvr
 			ovrHmd GetDevice() const; //ovrHmd is typedef of ovrHmdDesc*
 			const ovrHmd GetDeviceInfo() const; //ovrHmdDesc is typedef of ovrHmd
 			bool DevicePresent() const;
-			ovrQuatf GetOrientation() const;
+			ovrQuatf* GetOrientation() const;
 			void ResetOrientation();
-			// void OnMessage(const OVR::Message &message);
+			ovrVector3f* OVRManager::GetPosition() const;
+			ovrHmd OVRManager::GetConfiguration() const;
+
 		private:
 			OVRManager();
 			void SetDevice(ovrHmd device);
-			//OVR::DeviceManager *device_manager_;
 			ovrHmd hmd_device_;
 
-			//ovrSensorData?
-			//OVR::SensorFusion  *sensor_fusion_;
-			//ovrTrackingState sensor_fusion_;
+			ovrQuatf* defaultOrientation;
+			ovrVector3f* defaultPosition;
 	};
 }
 
