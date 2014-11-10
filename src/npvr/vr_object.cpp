@@ -92,7 +92,12 @@ bool VRObject::InvokeExec(const NPVariant* args, uint32_t arg_count,
 }
 
 void VRObject::ExecQuery(const char* command_str, std::ostringstream& s) {
-  s << "hello!";
+	OVRManager *manager = OVRManager::Instance();
+
+	if (command_str == "reset")
+	{
+		manager->ResetOrientation();
+	}
 }
 
 bool VRObject::InvokeOConfigurationRequest(const NPVariant* args, uint32_t arg_count,
