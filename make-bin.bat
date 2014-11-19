@@ -1,4 +1,4 @@
-@echo off
+
 ECHO TODO: gyp and msbuild
 
 copy manifest.json bin\
